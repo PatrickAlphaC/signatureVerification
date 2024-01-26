@@ -1,66 +1,22 @@
-## Foundry
+## Wtf is EIP-712?
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+When signing messages in our wallets, our web3 wallets would ask us to sign the raw unreadable data:
 
-Foundry consists of:
+<br/>
+<p align="center">
+<img src="./images/wtf_is_this.png" width="125" alt="wtf">
+</p>
+<br/>
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+So, we as a community decided we would format our data the exact same way, so that wallets had an easier time showing us what we are signing. Like the image here. 
 
-## Documentation
+<br/>
+<p align="center">
+<img src="./images/such_wow.png" width="125" alt="wow">
+</p>
+<br/>
 
-https://book.getfoundry.sh/
 
-## Usage
+Check out the comments for more information. 
 
-### Build
-
-```shell
-$ forge build
-```
-
-### Test
-
-```shell
-$ forge test
-```
-
-### Format
-
-```shell
-$ forge fmt
-```
-
-### Gas Snapshots
-
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+Openzeppelin makes all of this easier with `MessageHashUtils.sol``
