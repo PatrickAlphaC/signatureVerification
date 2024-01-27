@@ -343,13 +343,15 @@ contract SignatureVerifier {
         // 3. Restrict the s value to a single half
         // This prevents "signature malleability"
         // https://github.com/OpenZeppelin/openzeppelin-contracts/blob/b5a7f977d8a57b6854545522e36d91a0c11723cd/contracts/utils/cryptography/ECDSA.sol#L128
+        if (uint256(_s) > 0x7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF5D576E7357A4501DDFE92F46681B20A0) {
+            revert("bad s");
+        }
 
         // 4. Use chainId
         // we have it in our domain separator, so it should be ok
 
         // 5. Other
         // None
-
         return true;
     }
 }
