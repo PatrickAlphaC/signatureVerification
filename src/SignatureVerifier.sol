@@ -318,6 +318,7 @@ contract SignatureVerifier {
         return ecrecover(digest, _v, _r, _s);
     }
 
+    // This doesn't have "all the bells and whistles", like contract claimants, signature length, etc
     function verifySignerReplayResistant(
         ReplayResistantMessage memory message,
         uint8 _v,
