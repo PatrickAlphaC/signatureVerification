@@ -19,4 +19,8 @@ So, we as a community decided we would format our data the exact same way, so th
 
 Check out the comments for more information. 
 
-Openzeppelin makes all of this easier with `MessageHashUtils.sol``
+Openzeppelin makes all of this easier with `MessageHashUtils.sol`
+
+# Disclosure
+
+*This code has not undergone a thorough security review, do not use it as production code.*
