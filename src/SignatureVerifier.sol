@@ -339,6 +339,7 @@ contract SignatureVerifier {
 
         // Check ecrecover's return result
         address actualSigner = getSignerReplayResistant(message.number, message.deadline, message.nonce, _v, _r, _s);
+        require(actualSigner != address(0));
         require(signer == actualSigner);
 
         // 3. Restrict the s value to a single half
