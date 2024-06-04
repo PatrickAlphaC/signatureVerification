@@ -5,7 +5,31 @@ import { SignatureChecker } from "@openzeppelin/contracts/utils/cryptography/Sig
 import { ECDSA } from "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 
 contract SignatureVerifier {
-    function getSignerOZ(uint256 message, uint8 _v, bytes32 _r, bytes32 _s) public pure returns (address) {
+
+    struct Message {
+        string message;
+    }
+
+    bytes32 public constant MESSAGE_TYPEHASH = keccak256(
+        "Message(uint256 message)"
+    );
+
+    // returns the hash of the fully encoded EIP712 message for this domain i.e. the keccak256 digest of an EIP-712 typed data (EIP-191 version `0x01`).
+    function getMessageHash(
+        string _message,
+    ) public view returns (bytes32) {
+        return
+            _hashTypedDataV4(
+                keccak256(
+                    abi.encode(
+                        MESSAGE_TYPEHASH,
+                        Message({message: _message})
+                    )
+                )
+            );
+    }
+
+    function getSignerOZ(uint256 digest, uint8 _v, bytes32 _r, bytes32 _s) public pure returns (address) {
         bytes32 hashedMessage = bytes32(message);
         (address signer, /*ECDSA.RecoverError recoverError*/, /*bytes32 signatureLength*/ ) =
             ECDSA.tryRecover(hashedMessage, _v, _r, _s);
@@ -31,7 +55,7 @@ contract SignatureVerifier {
         returns (bool)
     {
         // You can also use isValidSignatureNow
-        address actualSigner = getSignerOZ(message, _v, _r, _s);
+        address actualSigner = getSignerOZ(getMessageHash(message), _v, _r, _s);
         require(actualSigner == signer);
         return true;
     }
