@@ -279,7 +279,7 @@ contract SignatureVerifier {
     }
 
     bytes32 public constant REPLAY_RESISTANT_MESSAGE_TYPEHASH =
-        keccak256("Message(uint256 number,uint256 deadline,uint256 nonce)");
+        keccak256("ReplayResistantMessage(uint256 number,uint256 deadline,uint256 nonce)");
 
     // Now, we also need to keep track of nonces!
     mapping(address => mapping(uint256 => bool)) public noncesUsed;
