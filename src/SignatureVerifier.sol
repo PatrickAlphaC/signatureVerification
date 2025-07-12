@@ -232,7 +232,7 @@ contract SignatureVerifier {
         bytes32 hashStructOfDomainSeparator = i_domain_separator;
 
         // now, we can hash our message struct
-        bytes32 hashedMessage = keccak256(abi.encode(MESSAGE_TYPEHASH, Message({ number: message })));
+        bytes32 hashedMessage = keccak256(abi.encode(MESSAGE_TYPEHASH, message));
 
         // And finally, combine them all
         bytes32 digest = keccak256(abi.encodePacked(prefix, eip712Version, hashStructOfDomainSeparator, hashedMessage));
@@ -307,12 +307,7 @@ contract SignatureVerifier {
         bytes1 eip712Version = bytes1(0x01); // EIP-712 is version 1 of EIP-191
         bytes32 hashStructOfDomainSeparator = i_domain_separator;
 
-        bytes32 hashedMessage = keccak256(
-            abi.encode(
-                REPLAY_RESISTANT_MESSAGE_TYPEHASH,
-                ReplayResistantMessage({ number: message, deadline: deadline, nonce: nonce })
-            )
-        );
+        bytes32 hashedMessage = keccak256(abi.encode(REPLAY_RESISTANT_MESSAGE_TYPEHASH, message, deadline, nonce));
 
         bytes32 digest = keccak256(abi.encodePacked(prefix, eip712Version, hashStructOfDomainSeparator, hashedMessage));
         return ecrecover(digest, _v, _r, _s);
