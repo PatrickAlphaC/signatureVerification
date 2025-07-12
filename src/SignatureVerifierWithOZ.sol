@@ -11,7 +11,7 @@ contract SignatureVerifierWithOZ is EIP712 {
     }
 
     bytes32 public constant MESSAGE_TYPEHASH = keccak256(
-        "Message(uint256 message)"
+        "Message(string message)"
     );
 
     constructor(string memory name, string memory version) EIP712(name, version) {}
@@ -20,12 +20,7 @@ contract SignatureVerifierWithOZ is EIP712 {
     function getMessageHash(string calldata _message) public view returns (bytes32) {
         return
             _hashTypedDataV4(
-                keccak256(
-                    abi.encode(
-                        MESSAGE_TYPEHASH,
-                        Message({message: _message})
-                    )
-                )
+                keccak256(abi.encode(MESSAGE_TYPEHASH, keccak256(bytes(_message))))
             );
     }
 
